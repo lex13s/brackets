@@ -1,223 +1,106 @@
-// let str = "(({})(({}))([])({})[])";
-// let bracketsConfig = [['(', ')'], ['[', ']',')']];
+let str            = "([{}])";
+let bracketsConfig = [['(', ')'], ['[', ']']];
 
-// module.exports = function check(str, bracketsConfig) {
-//     let firstArg, secondArg;
+// module.exports =
+// function check(str, bracketsConfig) {
+//     let firstArg  = str.split(""),
+//         secondArg = iterator(bracketsConfig, callback),
+//         result    = [];
+//     let resultFirstArg  = true,
+//         resultSecondArg = true;
+//     // function iterator(bracketsConfig, callback) {
+//     //
+//     //     let item, index    = 0;
+//     //     const secondLength = bracketsConfig.length;
+//     //
+//     //     for (; index < secondLength; index++) {
+//     //         item = bracketsConfig[index];
+//     //         if (Object.prototype.toString.call(item) === '[object Array]') {
+//     //             iterator(item, callback);
+//     //         } else {
+//     //             callback(item);
+//     //         }
+//     //     }
+//     //     return result
+//     // }
 //
-//     let result = [];
-//     let temp = true;
-//     //let secondLength = bracketsConfig.length;
-//
-//     function iterator (bracketsConfig, callback) {
-//
-//         let item, index = 0;
+//     function iterator(bracketsConfig, callback) {
+//         let item, index    = 0;
 //         const secondLength = bracketsConfig.length;
-//
 //         for (; index < secondLength; index++) {
 //             item = bracketsConfig[index];
-//
 //             if (Object.prototype.toString.call(item) === '[object Array]') {
 //                 iterator(item, callback);
 //             } else {
 //                 callback(item);
 //             }
 //         }
-//         //console.log(result); //нужно проверять каждый вложенный, тут точка создания их (и обнулять массив после проверки
-//         //---------->>>>>>>>>>>
-//         //checkArr(result);
-//         //----------<<<<<<<<<<<
-//
-//         // if (result[0] === undefined) {
-//         //     console.log("массив пустой");
-//         //     result.length = 0;
-//         //     return true;
-//         // } else {
-//         //     console.log("массив НЕ пустой");
-//         //     return false
-//         // }
-//
 //         return result
 //     }
+//
 //     function callback (item) {
 //         result.push(item);
 //     }
+//
 //     function checkArr(arr) {
 //         let result = [];
-//
-//         if (arr[0] === ")"  //Проверим, что аргумент НЕ начинается с закрывающейся скобки
-//             || arr[0] === "}"
-//             || arr[0] === "]") {
-//             console.log("Ошибка в скобках #1");
-//             temp = false;
-//             return false; //И первый выход с ошибкой из программы
-//         }
-//
-//         result.push(arr[0]);
-//
-//         for (let i = 1; i < arr.length; i++){
+//         for (let i = 1; i < arr.length; i++) {
 //             let j = 0;
-//
-//             if (result.length >= 1 && result[j] !== arr[i]) { //если пара совпала, удаляем из стека
-//                 result.shift();
-//             } else {
-//                 result.push(arr[i]); //если пара не совпала - добавляем в стек
+//             if ((arr[i] === ")" && result.length === 0)
+//                 || (arr[i] === "}" && result.length === 0)
+//                 || (arr[i] === "]" && result.length === 0)
+//                 || (arr[i] === "|" && result.length === 0)) {
+//                 return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся
+//             } else if (
+//                 (arr[i] === "}" && result[j] === "{")
+//                 || (arr[i] === "]" && result[j] === "[")
+//                 || (arr[i] === "|" && result[j] === "|")) {
+//                 result.pop(); //если пара  совпала - удаляем из стека
+//                 j--;
+//             } else if (arr[i] === "("
+//                 || arr[i] === "{"
+//                 || arr[i] === "["
+//                 || arr[i] === "|") { //убрать отдельно?
+//                 result.push(arr[i]);
+//                 j++;
+//             } else if (arr[i] === "|" && result[j] !== "|") {
+//                 result.push(arr[i]);
 //                 j++;
 //             }
-//
-//             console.log(result);
-//             if (result[0] === undefined) {
-//                 console.log("НЕТ ошибок в скобках");
-//                 result.length = 0; //очищаем массив
-//                 return true;
-//             } else {
-//                 console.log("Ошибка №2 в скобках ");
-//                 result.length = 0; //очищаем массив
-//                 temp = false;
-//                 return false
-//             }
 //         }
-//
-//     }
-//
-//     secondArg = iterator (bracketsConfig, callback);
-//     firstArg = str.split("");
-//     console.log(firstArg, secondArg);
-//     checkArr(firstArg);
-//     checkArr(secondArg);
-//
-//     return temp;
-// };
-//======temp=========
-
-// function check(str, bracketsConfig) {
-//     let result = [];
-//     let arr    = str.split("");
-//
-//     if (arr[0] === ")"  //Проверим, что аргумент НЕ начинается с закрывающейся скобки
-//         || arr[0] === "}"
-//         || arr[0] === "]") {
-//         console.log(false);
-//         return false;
-//     }
-//
-//     result.push(arr[0]);
-//
-//     for (let i = 1; i < arr.length; i++){
-//         let j = 0;
-//
-//         if (result.length >= 1 && result[j] !== arr[i]) { //если пара совпала, удаляем из стека
-//             console.log(result[j], arr[i]);
-//             result.shift();
-//         } else {
-//             result.push(arr[i]); //если пара не совпала - добавляем в стек
-//             j++;
-//             console.log(result[j], arr[i]);
-//         }
-//
-//     }
-//     console.log(result);
-//     if (result[0] === undefined) {
-//         return true;
-//     } else {
-//         return false
-//     }
-// }
-//console.log(check(str));
-
-
-//==========для многомерного массива===============
-
-
-//let length = bracketsConfig.length;
-//let result = [];
-
-// function iterator (bracketsConfig, callback) {
-//     // let temp = null;
-//
-//     let item, index = 0;
-//     length = bracketsConfig.length;
-//
-//     for (; index < length; index++) {
-//         item = bracketsConfig[index];
-//
-//         if (Object.prototype.toString.call(item) === '[object Array]') {
-//             iterator(item, callback);
-//         } else {
-//             callback(item);
-//         }
-//     }
-//     //console.log(result); //нужно проверять каждый вложенный, тут точка создания их (и обнулять массив после проверки
-//     //---------->>>>>>>>>>>
-//     //checkArr(result);
-//     //----------<<<<<<<<<<<
-//
-//     // if (result[0] === undefined) {
-//     //     console.log("массив пустой");
-//     //     result.length = 0;
-//     //     return true;
-//     // } else {
-//     //     console.log("массив НЕ пустой");
-//     //     return false
-//     // }
-//
-// return result
-// }
-
-// Будет вызвана для каждого элемента, не являющимся массивом.
-// function callback (item) {
-//     result.push(item);
-// }
-
-
-
-//Наконец проверяем наш массив
-// function checkArr(arr) {
-//     let result = [];
-//
-//     if (arr[0] === ")"  //Проверим, что аргумент НЕ начинается с закрывающейся скобки
-//         || arr[0] === "}"
-//         || arr[0] === "]") {
-//         console.log("Ошибка в скобках #1");
-//         return false; //И первый выход с ошибкой из программы
-//     }
-//
-//     result.push(arr[0]);
-//
-//     for (let i = 1; i < arr.length; i++){
-//         let j = 0;
-//
-//         if (result.length >= 1 && result[j] !== arr[i]) { //если пара совпала, удаляем из стека
-//             result.shift();
-//         } else {
-//             result.push(arr[i]); //если пара не совпала - добавляем в стек
-//             j++;
-//         }
-//
-//         console.log(result);
-//         if (result[0] === undefined) {
-//             console.log("НЕТ ошибок в скобках");
+//         if (result.length === 0) { //массив пуст, значит все проверки прошли
+//             console.log("проверяем ПУСТОЙ массив", result);
 //             result.length = 0; //очищаем массив
-//             console.log(result);
 //             return true;
 //         } else {
-//             console.log("Ошибка в скобках №2");
-//             result.length = 0; //очищаем массив
-//             console.log(result);
+//             console.log("проверяем НЕ пустой массив", result);
+//             result.length  = 0; //очищаем массив
+//             resultFirstArg = false;
 //             return false
 //         }
 //     }
 //
+//     console.log(firstArg, secondArg);
+//     resultFirstArg = checkArr(firstArg);
+//     console.log("Проверка firstArg прошла", resultFirstArg);
+//     resultSecondArg = checkArr(secondArg);
+//     console.log("Проверка secondArg прошла", resultFirstArg);
+//     return resultFirstArg && resultSecondArg;
 // }
+//
+// console.log(check(str, bracketsConfig));
 
 
 
-//----------------------------ФИНАЛЬНАЯ ВРСИЯ----------------------------------------------------------
 function check(str, bracketsConfig) {
-    let firstArg, secondArg;
-
     let result = [];
-    let temp = true;
-    //let secondLength = bracketsConfig.length;
+
+    let firstArg = str.split(""),
+        secondArg = iterator (bracketsConfig, callback);
+
+    let resultFirstArg = true,
+        resultSecondArg = false;
+
 
     function iterator (bracketsConfig, callback) {
 
@@ -233,20 +116,6 @@ function check(str, bracketsConfig) {
                 callback(item);
             }
         }
-        //console.log(result); //нужно проверять каждый вложенный, тут точка создания их (и обнулять массив после проверки
-        //---------->>>>>>>>>>>
-        //checkArr(result);
-        //----------<<<<<<<<<<<
-
-        // if (result[0] === undefined) {
-        //     console.log("массив пустой");
-        //     result.length = 0;
-        //     return true;
-        // } else {
-        //     console.log("массив НЕ пустой");
-        //     return false
-        // }
-
         return result
     }
     function callback (item) {
@@ -256,49 +125,48 @@ function check(str, bracketsConfig) {
     function checkArr(arr) {
         let result = [];
 
-        if (arr[0] === ")"  //Проверим, что аргумент НЕ начинается с закрывающейся скобки
-            || arr[0] === "}"
-            || arr[0] === "]") {
-            console.log("Ошибка №1");
-            temp = false;
-            return false; //И первый выход с ошибкой из программы
-        }
-
-        result.push(arr[0]);
-
-        for (let i = 1; i < arr.length; i++){
+        for (let i = 1; i < arr.length; i++) {
             let j = 0;
-
-            if (result.length > 0 && result[j] !== arr[i]) { //если пара совпала, удаляем из стека
-                result.shift();
-            } else {
-                result.push(arr[i]); //если пара не совпала - добавляем в стек
+            if ((arr[i] === ")" && result.length === 0)
+                || (arr[i] === "}" && result.length === 0)
+                || (arr[i] === "]" && result.length === 0)
+                || (arr[i] === "|" && result.length === 0)) {
+                return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся
+            } else if (
+                (arr[i] === "}" && result[j] === "{")
+                || (arr[i] === "]" && result[j] === "[")
+                || (arr[i] === "|" && result[j] === "|")) {
+                result.pop(); //если пара  совпала - удаляем из стека
+                j--;
+            } else if (arr[i] === "("
+                || arr[i] === "{"
+                || arr[i] === "["
+                || arr[i] === "|") { //убрать отдельно?
+                result.push(arr[i]);
+                j++;
+            } else if (arr[i] === "|" && result[j] !== "|") {
+                result.push(arr[i]);
                 j++;
             }
-
         }
-        console.log(result);
-        if (result[0] === undefined) {
-            console.log("НЕТ ошибок в скобках");
+        if (result.length === 0) { //массив пуст, значит все проверки прошли
+            console.log("проверяем ПУСТОЙ массив", result);
             result.length = 0; //очищаем массив
             return true;
         } else {
-            console.log("Ошибка №2 ");
-            result.length = 0; //очищаем массив
-            temp = false;
+            console.log("проверяем НЕ пустой массив", result);
+            result.length  = 0; //очищаем массив
+            resultFirstArg = false;
             return false
         }
     }
 
-    secondArg = iterator (bracketsConfig, callback);
-    firstArg = str.split("");
-
     console.log(firstArg, secondArg);
-    checkArr(firstArg);
-    console.log("Проверка firstArg прошла", temp);
-    checkArr(secondArg);
-    console.log("Проверка secondArg прошла", temp);
+    resultFirstArg=  checkArr(firstArg);
+    console.log("Проверка firstArg прошла", firstArg);
+    resultSecondArg = checkArr(secondArg);
+    console.log("Проверка secondArg прошла", secondArg);
 
-    return temp;
+    return resultFirstArg && resultSecondArg;
 }
 console.log(check(str, bracketsConfig));
