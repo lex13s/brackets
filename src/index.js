@@ -1,34 +1,24 @@
 let str            = "([{}])";
 let bracketsConfig = [['(', ')'], ['[', ']']];
 
-// module.exports =
-// function check(str, bracketsConfig) {
-//     let firstArg  = str.split(""),
-//         secondArg = iterator(bracketsConfig, callback),
-//         result    = [];
-//     let resultFirstArg  = true,
-//         resultSecondArg = true;
-//     // function iterator(bracketsConfig, callback) {
-//     //
-//     //     let item, index    = 0;
-//     //     const secondLength = bracketsConfig.length;
-//     //
-//     //     for (; index < secondLength; index++) {
-//     //         item = bracketsConfig[index];
-//     //         if (Object.prototype.toString.call(item) === '[object Array]') {
-//     //             iterator(item, callback);
-//     //         } else {
-//     //             callback(item);
-//     //         }
-//     //     }
-//     //     return result
-//     // }
+// module.exports = function check(str, bracketsConfig) {
+//     let result = [];
 //
-//     function iterator(bracketsConfig, callback) {
-//         let item, index    = 0;
+//     let firstArg = str.split(""),
+//         secondArg = iterator (bracketsConfig, callback);
+//
+//     let resultFirstArg = true,
+//         resultSecondArg = true;
+//
+//
+//     function iterator (bracketsConfig, callback) {
+//
+//         let item, index = 0;
 //         const secondLength = bracketsConfig.length;
+//
 //         for (; index < secondLength; index++) {
 //             item = bracketsConfig[index];
+//
 //             if (Object.prototype.toString.call(item) === '[object Array]') {
 //                 iterator(item, callback);
 //             } else {
@@ -37,35 +27,46 @@ let bracketsConfig = [['(', ')'], ['[', ']']];
 //         }
 //         return result
 //     }
-//
 //     function callback (item) {
 //         result.push(item);
 //     }
 //
 //     function checkArr(arr) {
 //         let result = [];
-//         for (let i = 1; i < arr.length; i++) {
-//             let j = 0;
+//
+//         for (let i =0, j = result.length -1; i < arr.length; i++) {
+//             // let j = 0;
 //             if ((arr[i] === ")" && result.length === 0)
 //                 || (arr[i] === "}" && result.length === 0)
 //                 || (arr[i] === "]" && result.length === 0)
 //                 || (arr[i] === "|" && result.length === 0)) {
-//                 return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся
+//                 console.log("первый блок", arr[i], result[j]);
+//                 return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся (вроде, работает)
 //             } else if (
 //                 (arr[i] === "}" && result[j] === "{")
+//                 || (arr[i] === ")" && result[j] === "(")
 //                 || (arr[i] === "]" && result[j] === "[")
 //                 || (arr[i] === "|" && result[j] === "|")) {
+//                 console.log("второй блок", arr[i], result[j]);
 //                 result.pop(); //если пара  совпала - удаляем из стека
 //                 j--;
+//
+//             } else if (arr[i] === "|" && result[j] !== "|") {
+//                 console.log("третий блок", arr[i], result[j]);
+//                 result.push(arr[i]);
+//                 j++;
+//
 //             } else if (arr[i] === "("
 //                 || arr[i] === "{"
 //                 || arr[i] === "["
 //                 || arr[i] === "|") { //убрать отдельно?
+//                 console.log("четвертый блок", arr[i], result[j]);
 //                 result.push(arr[i]);
 //                 j++;
-//             } else if (arr[i] === "|" && result[j] !== "|") {
-//                 result.push(arr[i]);
-//                 j++;
+//
+//
+//
+//
 //             }
 //         }
 //         if (result.length === 0) { //массив пуст, значит все проверки прошли
@@ -81,14 +82,15 @@ let bracketsConfig = [['(', ')'], ['[', ']']];
 //     }
 //
 //     console.log(firstArg, secondArg);
-//     resultFirstArg = checkArr(firstArg);
-//     console.log("Проверка firstArg прошла", resultFirstArg);
+//     resultFirstArg=  checkArr(firstArg);
+//     console.log("Проверка firstArg прошла", firstArg);
 //     resultSecondArg = checkArr(secondArg);
-//     console.log("Проверка secondArg прошла", resultFirstArg);
-//     return resultFirstArg && resultSecondArg;
-// }
+//     console.log("Проверка secondArg прошла", secondArg);
 //
-// console.log(check(str, bracketsConfig));
+//     return resultFirstArg && resultSecondArg;
+// };
+
+
 
 
 
@@ -99,7 +101,7 @@ function check(str, bracketsConfig) {
         secondArg = iterator (bracketsConfig, callback);
 
     let resultFirstArg = true,
-        resultSecondArg = false;
+        resultSecondArg = true;
 
 
     function iterator (bracketsConfig, callback) {
@@ -125,28 +127,39 @@ function check(str, bracketsConfig) {
     function checkArr(arr) {
         let result = [];
 
-        for (let i = 1; i < arr.length; i++) {
-            let j = 0;
+        for (let i =0, j = result.length -1; i < arr.length; i++) {
+            // let j = 0;
             if ((arr[i] === ")" && result.length === 0)
                 || (arr[i] === "}" && result.length === 0)
                 || (arr[i] === "]" && result.length === 0)
                 || (arr[i] === "|" && result.length === 0)) {
-                return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся
+                console.log("первый блок", arr[i], result[j]);
+                return resultSecondArg = false // проверям, что 1 скобка НЕ закрывающаяся (вроде, работает)
             } else if (
                 (arr[i] === "}" && result[j] === "{")
+                || (arr[i] === ")" && result[j] === "(")
                 || (arr[i] === "]" && result[j] === "[")
                 || (arr[i] === "|" && result[j] === "|")) {
+                console.log("второй блок", arr[i], result[j]);
                 result.pop(); //если пара  совпала - удаляем из стека
                 j--;
+
+            } else if (arr[i] === "|" && result[j] !== "|") {
+                console.log("третий блок", arr[i], result[j]);
+                result.push(arr[i]);
+                j++;
+
             } else if (arr[i] === "("
                 || arr[i] === "{"
                 || arr[i] === "["
                 || arr[i] === "|") { //убрать отдельно?
+                console.log("четвертый блок", arr[i], result[j]);
                 result.push(arr[i]);
                 j++;
-            } else if (arr[i] === "|" && result[j] !== "|") {
-                result.push(arr[i]);
-                j++;
+
+
+
+
             }
         }
         if (result.length === 0) { //массив пуст, значит все проверки прошли
