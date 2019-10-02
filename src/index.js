@@ -21,10 +21,7 @@ module.exports = function check(str, bracketsConfig) {
         }
         stack.push(char);
     }
-    if (stack.length !== 0) {
-        return false;
-    }
-    return true;
+    return stack.length === 0;
 };
 
 let str            = "|()|(||)||";
