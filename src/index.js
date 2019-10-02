@@ -7,16 +7,11 @@ module.exports = function check(str, bracketsConfig) {
     let stack = [];
     for (let i = 0; i < str.length; i++) {
         let char = str.charAt(i);
-        if (!brackets.hasOwnProperty(char)) { //Если закрывающая
-            //console.log(brackets[char]);
-            stack.push(char);
-            continue;
-        }
-        if (brackets[char] === stack[stack.length - 1]) { //Если на вершине стека парная ей
+        if (brackets[char] && brackets[char] === stack[stack.length - 1]) {
             stack.pop();
             continue;
         }
-        if (char !== brackets[char]) {//Это точно зщакрывающая, причем не может быть ||
+        if (brackets.hasOwnProperty(char) && char !== brackets[char]) {
             return false;
         }
         stack.push(char);
@@ -24,8 +19,10 @@ module.exports = function check(str, bracketsConfig) {
     return stack.length === 0;
 };
 
-let str            = "|()|(||)||";
-let bracketsConfig = [['(', ')'], ['|', '|']];
+// let str            = "()";
+// let bracketsConfig = [['(', ')']];
+// check(str,bracketsConfig);
+
 // function check(str, bracketsConfig) {
 //     let brackets = {};
 //     bracketsConfig.forEach(item => {
